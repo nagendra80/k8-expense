@@ -1,42 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: backend
   namespace: expense
   # labels of deployment resource
   labels:
-    app: mysql
-    tier: mysql
+    app: backend
+    tier: backend
     project: expense
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
-      tier: mysql
+      app: backend
+      tier: backend
       project: expense
   template:
     metadata:
       labels:
-        app: mysql
-        tier: mysql
+        app: backend
+        tier: backend
         project: expense
     spec:
       containers:
       - name: nginx
-        image: nagendra80/mysql:1.0.0
+        image: nagendra80/backend:1.0.0
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: mysql
+  name: backend
   namespace: expense
 spec:
   selector: # Labels are used as selectors
-    app: mysql
-    tier: mysql
+    app: backend
+    tier: backend
     project: expense
   ports:
   - protocol: TCP
-    port: 3306 # service port
-    targetPort: 3306
+    port: 8080 # service port
+    targetPort: 8080
